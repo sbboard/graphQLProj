@@ -1,6 +1,6 @@
 #GraphQL API Node Server Project
-- Prisma as your data modeling tool
-- Docker-based PostgreSQL, MySQL, or MongoDB as your data store
+- DONE Prisma as your data modeling tool
+- DONE Docker-based PostgreSQL, MySQL, or MongoDB as your data store
 - At least 3 Query resolvers to get data from your server
 - At least 2 Mutation resolvers allowing users to create, update, or upsert an item.
 - At least 1 Mutation resolver allowing users to delete an item.
