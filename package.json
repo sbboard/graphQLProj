@@ -6,7 +6,7 @@
   "scripts": {
     "dockerStart": "docker-compose  -f ./docker-compose.yml up -d",
     "deploy": "prisma deploy",
-    "start": "ts-node-dev --no-notify --respawn --transpileOnly ./"
+    "start": "index.ts"
   },
   "repository": {
     "type": "git",
