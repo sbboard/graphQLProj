@@ -3,12 +3,182 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateHero {
+/* GraphQL */ `type AggregateBaddie {
+  count: Int!
+}
+
+type AggregateHero {
   count: Int!
 }
 
 type AggregateTeam {
   count: Int!
+}
+
+type Baddie {
+  id: ID!
+  name: String!
+  powerLvl: Int!
+  nemesis: Hero
+  HP: Int!
+}
+
+type BaddieConnection {
+  pageInfo: PageInfo!
+  edges: [BaddieEdge]!
+  aggregate: AggregateBaddie!
+}
+
+input BaddieCreateInput {
+  name: String!
+  powerLvl: Int!
+  nemesis: HeroCreateOneWithoutNemesisInput
+  HP: Int!
+}
+
+input BaddieCreateOneWithoutNemesisInput {
+  create: BaddieCreateWithoutNemesisInput
+  connect: BaddieWhereUniqueInput
+}
+
+input BaddieCreateWithoutNemesisInput {
+  name: String!
+  powerLvl: Int!
+  HP: Int!
+}
+
+type BaddieEdge {
+  node: Baddie!
+  cursor: String!
+}
+
+enum BaddieOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  powerLvl_ASC
+  powerLvl_DESC
+  HP_ASC
+  HP_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type BaddiePreviousValues {
+  id: ID!
+  name: String!
+  powerLvl: Int!
+  HP: Int!
+}
+
+type BaddieSubscriptionPayload {
+  mutation: MutationType!
+  node: Baddie
+  updatedFields: [String!]
+  previousValues: BaddiePreviousValues
+}
+
+input BaddieSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: BaddieWhereInput
+  AND: [BaddieSubscriptionWhereInput!]
+  OR: [BaddieSubscriptionWhereInput!]
+  NOT: [BaddieSubscriptionWhereInput!]
+}
+
+input BaddieUpdateInput {
+  name: String
+  powerLvl: Int
+  nemesis: HeroUpdateOneWithoutNemesisInput
+  HP: Int
+}
+
+input BaddieUpdateManyMutationInput {
+  name: String
+  powerLvl: Int
+  HP: Int
+}
+
+input BaddieUpdateOneWithoutNemesisInput {
+  create: BaddieCreateWithoutNemesisInput
+  update: BaddieUpdateWithoutNemesisDataInput
+  upsert: BaddieUpsertWithoutNemesisInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: BaddieWhereUniqueInput
+}
+
+input BaddieUpdateWithoutNemesisDataInput {
+  name: String
+  powerLvl: Int
+  HP: Int
+}
+
+input BaddieUpsertWithoutNemesisInput {
+  update: BaddieUpdateWithoutNemesisDataInput!
+  create: BaddieCreateWithoutNemesisInput!
+}
+
+input BaddieWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  powerLvl: Int
+  powerLvl_not: Int
+  powerLvl_in: [Int!]
+  powerLvl_not_in: [Int!]
+  powerLvl_lt: Int
+  powerLvl_lte: Int
+  powerLvl_gt: Int
+  powerLvl_gte: Int
+  nemesis: HeroWhereInput
+  HP: Int
+  HP_not: Int
+  HP_in: [Int!]
+  HP_not_in: [Int!]
+  HP_lt: Int
+  HP_lte: Int
+  HP_gt: Int
+  HP_gte: Int
+  AND: [BaddieWhereInput!]
+  OR: [BaddieWhereInput!]
+  NOT: [BaddieWhereInput!]
+}
+
+input BaddieWhereUniqueInput {
+  id: ID
+  name: String
 }
 
 type BatchPayload {
@@ -20,6 +190,8 @@ type Hero {
   name: String!
   teams(where: TeamWhereInput, orderBy: TeamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Team!]
   powerLvl: Int!
+  HP: Int!
+  nemesis: Baddie
 }
 
 type HeroConnection {
@@ -32,6 +204,8 @@ input HeroCreateInput {
   name: String!
   teams: TeamCreateManyWithoutMembersInput
   powerLvl: Int!
+  HP: Int!
+  nemesis: BaddieCreateOneWithoutNemesisInput
 }
 
 input HeroCreateManyWithoutTeamsInput {
@@ -39,9 +213,23 @@ input HeroCreateManyWithoutTeamsInput {
   connect: [HeroWhereUniqueInput!]
 }
 
+input HeroCreateOneWithoutNemesisInput {
+  create: HeroCreateWithoutNemesisInput
+  connect: HeroWhereUniqueInput
+}
+
+input HeroCreateWithoutNemesisInput {
+  name: String!
+  teams: TeamCreateManyWithoutMembersInput
+  powerLvl: Int!
+  HP: Int!
+}
+
 input HeroCreateWithoutTeamsInput {
   name: String!
   powerLvl: Int!
+  HP: Int!
+  nemesis: BaddieCreateOneWithoutNemesisInput
 }
 
 type HeroEdge {
@@ -56,6 +244,8 @@ enum HeroOrderByInput {
   name_DESC
   powerLvl_ASC
   powerLvl_DESC
+  HP_ASC
+  HP_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -66,6 +256,7 @@ type HeroPreviousValues {
   id: ID!
   name: String!
   powerLvl: Int!
+  HP: Int!
 }
 
 input HeroScalarWhereInput {
@@ -105,6 +296,14 @@ input HeroScalarWhereInput {
   powerLvl_lte: Int
   powerLvl_gt: Int
   powerLvl_gte: Int
+  HP: Int
+  HP_not: Int
+  HP_in: [Int!]
+  HP_not_in: [Int!]
+  HP_lt: Int
+  HP_lte: Int
+  HP_gt: Int
+  HP_gte: Int
   AND: [HeroScalarWhereInput!]
   OR: [HeroScalarWhereInput!]
   NOT: [HeroScalarWhereInput!]
@@ -132,16 +331,20 @@ input HeroUpdateInput {
   name: String
   teams: TeamUpdateManyWithoutMembersInput
   powerLvl: Int
+  HP: Int
+  nemesis: BaddieUpdateOneWithoutNemesisInput
 }
 
 input HeroUpdateManyDataInput {
   name: String
   powerLvl: Int
+  HP: Int
 }
 
 input HeroUpdateManyMutationInput {
   name: String
   powerLvl: Int
+  HP: Int
 }
 
 input HeroUpdateManyWithoutTeamsInput {
@@ -161,14 +364,37 @@ input HeroUpdateManyWithWhereNestedInput {
   data: HeroUpdateManyDataInput!
 }
 
+input HeroUpdateOneWithoutNemesisInput {
+  create: HeroCreateWithoutNemesisInput
+  update: HeroUpdateWithoutNemesisDataInput
+  upsert: HeroUpsertWithoutNemesisInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: HeroWhereUniqueInput
+}
+
+input HeroUpdateWithoutNemesisDataInput {
+  name: String
+  teams: TeamUpdateManyWithoutMembersInput
+  powerLvl: Int
+  HP: Int
+}
+
 input HeroUpdateWithoutTeamsDataInput {
   name: String
   powerLvl: Int
+  HP: Int
+  nemesis: BaddieUpdateOneWithoutNemesisInput
 }
 
 input HeroUpdateWithWhereUniqueWithoutTeamsInput {
   where: HeroWhereUniqueInput!
   data: HeroUpdateWithoutTeamsDataInput!
+}
+
+input HeroUpsertWithoutNemesisInput {
+  update: HeroUpdateWithoutNemesisDataInput!
+  create: HeroCreateWithoutNemesisInput!
 }
 
 input HeroUpsertWithWhereUniqueWithoutTeamsInput {
@@ -217,6 +443,15 @@ input HeroWhereInput {
   powerLvl_lte: Int
   powerLvl_gt: Int
   powerLvl_gte: Int
+  HP: Int
+  HP_not: Int
+  HP_in: [Int!]
+  HP_not_in: [Int!]
+  HP_lt: Int
+  HP_lte: Int
+  HP_gt: Int
+  HP_gte: Int
+  nemesis: BaddieWhereInput
   AND: [HeroWhereInput!]
   OR: [HeroWhereInput!]
   NOT: [HeroWhereInput!]
@@ -230,6 +465,12 @@ input HeroWhereUniqueInput {
 scalar Long
 
 type Mutation {
+  createBaddie(data: BaddieCreateInput!): Baddie!
+  updateBaddie(data: BaddieUpdateInput!, where: BaddieWhereUniqueInput!): Baddie
+  updateManyBaddies(data: BaddieUpdateManyMutationInput!, where: BaddieWhereInput): BatchPayload!
+  upsertBaddie(where: BaddieWhereUniqueInput!, create: BaddieCreateInput!, update: BaddieUpdateInput!): Baddie!
+  deleteBaddie(where: BaddieWhereUniqueInput!): Baddie
+  deleteManyBaddies(where: BaddieWhereInput): BatchPayload!
   createHero(data: HeroCreateInput!): Hero!
   updateHero(data: HeroUpdateInput!, where: HeroWhereUniqueInput!): Hero
   updateManyHeroes(data: HeroUpdateManyMutationInput!, where: HeroWhereInput): BatchPayload!
@@ -262,6 +503,9 @@ type PageInfo {
 }
 
 type Query {
+  baddie(where: BaddieWhereUniqueInput!): Baddie
+  baddies(where: BaddieWhereInput, orderBy: BaddieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Baddie]!
+  baddiesConnection(where: BaddieWhereInput, orderBy: BaddieOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BaddieConnection!
   hero(where: HeroWhereUniqueInput!): Hero
   heroes(where: HeroWhereInput, orderBy: HeroOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Hero]!
   heroesConnection(where: HeroWhereInput, orderBy: HeroOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HeroConnection!
@@ -272,6 +516,7 @@ type Query {
 }
 
 type Subscription {
+  baddie(where: BaddieSubscriptionWhereInput): BaddieSubscriptionPayload
   hero(where: HeroSubscriptionWhereInput): HeroSubscriptionPayload
   team(where: TeamSubscriptionWhereInput): TeamSubscriptionPayload
 }

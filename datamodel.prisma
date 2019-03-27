@@ -3,7 +3,6 @@ type Hero {
   name: String! @unique
   teams: [Team!]!
   powerLvl: Int!
-  HP: Int!
   nemesis: Baddie
 }
 
@@ -18,5 +17,4 @@ type Baddie {
   name: String! @unique
   powerLvl: Int!
   nemesis: Hero
-  HP: Int!
 }
