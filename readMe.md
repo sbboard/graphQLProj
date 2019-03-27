@@ -8,3 +8,8 @@
 - Your app will be deployed to production using some service like Heroku, Digital Ocean, etc.
 - All of your source code will be properly uploaded to GitHub
 - Your ReadMe file will accurately describe your server install and run process and how to use the APIs
+
+#plan
+- marvel characters
+- marvel teams
+- power level

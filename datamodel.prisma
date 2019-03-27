@@ -1,13 +1,13 @@
-type User {
+type Hero {
   id: ID! @unique
-  email: String @unique
-  name: String!
-  posts: [Post!]!
+  name: String! @unique
+  teams: [Team!]!
+  power: Number!
+  alive: Boolean! @default(value: "true")
 }
 
-type Post {
+type Team {
   id: ID! @unique
-  title: String!
-  published: Boolean! @default(value: "false")
-  author: User
+  name: String! @unique
+  leader: Hero
 }
