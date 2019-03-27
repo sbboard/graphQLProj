@@ -14,8 +14,8 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
   U[keyof U];
 
 export interface Exists {
-  post: (where?: PostWhereInput) => Promise<boolean>;
-  user: (where?: UserWhereInput) => Promise<boolean>;
+  hero: (where?: HeroWhereInput) => Promise<boolean>;
+  team: (where?: TeamWhereInput) => Promise<boolean>;
 }
 
 export interface Node {}
@@ -37,90 +37,90 @@ export interface Prisma {
    * Queries
    */
 
-  post: (where: PostWhereUniqueInput) => PostPromise;
-  posts: (
+  hero: (where: HeroWhereUniqueInput) => HeroPromise;
+  heroes: (
     args?: {
-      where?: PostWhereInput;
-      orderBy?: PostOrderByInput;
+      where?: HeroWhereInput;
+      orderBy?: HeroOrderByInput;
       skip?: Int;
       after?: String;
       before?: String;
       first?: Int;
       last?: Int;
     }
-  ) => FragmentableArray<Post>;
-  postsConnection: (
+  ) => FragmentableArray<Hero>;
+  heroesConnection: (
     args?: {
-      where?: PostWhereInput;
-      orderBy?: PostOrderByInput;
+      where?: HeroWhereInput;
+      orderBy?: HeroOrderByInput;
       skip?: Int;
       after?: String;
       before?: String;
       first?: Int;
       last?: Int;
     }
-  ) => PostConnectionPromise;
-  user: (where: UserWhereUniqueInput) => UserPromise;
-  users: (
+  ) => HeroConnectionPromise;
+  team: (where: TeamWhereUniqueInput) => TeamPromise;
+  teams: (
     args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
+      where?: TeamWhereInput;
+      orderBy?: TeamOrderByInput;
       skip?: Int;
       after?: String;
       before?: String;
       first?: Int;
       last?: Int;
     }
-  ) => FragmentableArray<User>;
-  usersConnection: (
+  ) => FragmentableArray<Team>;
+  teamsConnection: (
     args?: {
-      where?: UserWhereInput;
-      orderBy?: UserOrderByInput;
+      where?: TeamWhereInput;
+      orderBy?: TeamOrderByInput;
       skip?: Int;
       after?: String;
       before?: String;
       first?: Int;
       last?: Int;
     }
-  ) => UserConnectionPromise;
+  ) => TeamConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
   /**
    * Mutations
    */
 
-  createPost: (data: PostCreateInput) => PostPromise;
-  updatePost: (
-    args: { data: PostUpdateInput; where: PostWhereUniqueInput }
-  ) => PostPromise;
-  updateManyPosts: (
-    args: { data: PostUpdateManyMutationInput; where?: PostWhereInput }
+  createHero: (data: HeroCreateInput) => HeroPromise;
+  updateHero: (
+    args: { data: HeroUpdateInput; where: HeroWhereUniqueInput }
+  ) => HeroPromise;
+  updateManyHeroes: (
+    args: { data: HeroUpdateManyMutationInput; where?: HeroWhereInput }
   ) => BatchPayloadPromise;
-  upsertPost: (
+  upsertHero: (
     args: {
-      where: PostWhereUniqueInput;
-      create: PostCreateInput;
-      update: PostUpdateInput;
+      where: HeroWhereUniqueInput;
+      create: HeroCreateInput;
+      update: HeroUpdateInput;
     }
-  ) => PostPromise;
-  deletePost: (where: PostWhereUniqueInput) => PostPromise;
-  deleteManyPosts: (where?: PostWhereInput) => BatchPayloadPromise;
-  createUser: (data: UserCreateInput) => UserPromise;
-  updateUser: (
-    args: { data: UserUpdateInput; where: UserWhereUniqueInput }
-  ) => UserPromise;
-  updateManyUsers: (
-    args: { data: UserUpdateManyMutationInput; where?: UserWhereInput }
+  ) => HeroPromise;
+  deleteHero: (where: HeroWhereUniqueInput) => HeroPromise;
+  deleteManyHeroes: (where?: HeroWhereInput) => BatchPayloadPromise;
+  createTeam: (data: TeamCreateInput) => TeamPromise;
+  updateTeam: (
+    args: { data: TeamUpdateInput; where: TeamWhereUniqueInput }
+  ) => TeamPromise;
+  updateManyTeams: (
+    args: { data: TeamUpdateManyMutationInput; where?: TeamWhereInput }
   ) => BatchPayloadPromise;
-  upsertUser: (
+  upsertTeam: (
     args: {
-      where: UserWhereUniqueInput;
-      create: UserCreateInput;
-      update: UserUpdateInput;
+      where: TeamWhereUniqueInput;
+      create: TeamCreateInput;
+      update: TeamUpdateInput;
     }
-  ) => UserPromise;
-  deleteUser: (where: UserWhereUniqueInput) => UserPromise;
-  deleteManyUsers: (where?: UserWhereInput) => BatchPayloadPromise;
+  ) => TeamPromise;
+  deleteTeam: (where: TeamWhereUniqueInput) => TeamPromise;
+  deleteManyTeams: (where?: TeamWhereInput) => BatchPayloadPromise;
 
   /**
    * Subscriptions
@@ -130,12 +130,12 @@ export interface Prisma {
 }
 
 export interface Subscription {
-  post: (
-    where?: PostSubscriptionWhereInput
-  ) => PostSubscriptionPayloadSubscription;
-  user: (
-    where?: UserSubscriptionWhereInput
-  ) => UserSubscriptionPayloadSubscription;
+  hero: (
+    where?: HeroSubscriptionWhereInput
+  ) => HeroSubscriptionPayloadSubscription;
+  team: (
+    where?: TeamSubscriptionWhereInput
+  ) => TeamSubscriptionPayloadSubscription;
 }
 
 export interface ClientConstructor<T> {
@@ -146,23 +146,9 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type PostOrderByInput =
+export type TeamOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "title_ASC"
-  | "title_DESC"
-  | "published_ASC"
-  | "published_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
-export type UserOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "email_ASC"
-  | "email_DESC"
   | "name_ASC"
   | "name_DESC"
   | "createdAt_ASC"
@@ -170,110 +156,35 @@ export type UserOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
+export type HeroOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "powerLvl_ASC"
+  | "powerLvl_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface UserUpdateOneWithoutPostsInput {
-  create?: UserCreateWithoutPostsInput;
-  update?: UserUpdateWithoutPostsDataInput;
-  upsert?: UserUpsertWithoutPostsInput;
-  delete?: Boolean;
-  disconnect?: Boolean;
-  connect?: UserWhereUniqueInput;
-}
-
-export type PostWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface PostUpdateManyWithoutAuthorInput {
-  create?: PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput;
-  delete?: PostWhereUniqueInput[] | PostWhereUniqueInput;
-  connect?: PostWhereUniqueInput[] | PostWhereUniqueInput;
-  set?: PostWhereUniqueInput[] | PostWhereUniqueInput;
-  disconnect?: PostWhereUniqueInput[] | PostWhereUniqueInput;
-  update?:
-    | PostUpdateWithWhereUniqueWithoutAuthorInput[]
-    | PostUpdateWithWhereUniqueWithoutAuthorInput;
-  upsert?:
-    | PostUpsertWithWhereUniqueWithoutAuthorInput[]
-    | PostUpsertWithWhereUniqueWithoutAuthorInput;
-  deleteMany?: PostScalarWhereInput[] | PostScalarWhereInput;
-  updateMany?:
-    | PostUpdateManyWithWhereNestedInput[]
-    | PostUpdateManyWithWhereNestedInput;
-}
-
-export interface UserCreateInput {
-  email?: String;
-  name: String;
-  posts?: PostCreateManyWithoutAuthorInput;
-}
-
-export interface PostUpdateManyMutationInput {
-  title?: String;
-  published?: Boolean;
-}
-
-export interface UserSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: UserWhereInput;
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-}
-
-export interface PostCreateInput {
-  title: String;
-  published?: Boolean;
-  author?: UserCreateOneWithoutPostsInput;
-}
-
-export interface UserUpdateManyMutationInput {
-  email?: String;
+export interface TeamUpdateWithoutMembersDataInput {
   name?: String;
 }
 
-export interface UserCreateOneWithoutPostsInput {
-  create?: UserCreateWithoutPostsInput;
-  connect?: UserWhereUniqueInput;
-}
-
-export interface PostUpdateManyWithWhereNestedInput {
-  where: PostScalarWhereInput;
-  data: PostUpdateManyDataInput;
-}
-
-export interface UserCreateWithoutPostsInput {
-  email?: String;
-  name: String;
-}
-
-export type UserWhereUniqueInput = AtLeastOne<{
+export type HeroWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
-  email?: String;
+  name?: String;
 }>;
 
-export interface PostUpdateInput {
-  title?: String;
-  published?: Boolean;
-  author?: UserUpdateOneWithoutPostsInput;
+export interface TeamUpdateManyWithWhereNestedInput {
+  where: TeamScalarWhereInput;
+  data: TeamUpdateManyDataInput;
 }
 
-export interface PostUpdateWithoutAuthorDataInput {
-  title?: String;
-  published?: Boolean;
-}
-
-export interface UserUpdateInput {
-  email?: String;
-  name?: String;
-  posts?: PostUpdateManyWithoutAuthorInput;
-}
-
-export interface UserWhereInput {
+export interface HeroWhereInput {
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -288,20 +199,6 @@ export interface UserWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
-  email?: String;
-  email_not?: String;
-  email_in?: String[] | String;
-  email_not_in?: String[] | String;
-  email_lt?: String;
-  email_lte?: String;
-  email_gt?: String;
-  email_gte?: String;
-  email_contains?: String;
-  email_not_contains?: String;
-  email_starts_with?: String;
-  email_not_starts_with?: String;
-  email_ends_with?: String;
-  email_not_ends_with?: String;
   name?: String;
   name_not?: String;
   name_in?: String[] | String;
@@ -316,35 +213,27 @@ export interface UserWhereInput {
   name_not_starts_with?: String;
   name_ends_with?: String;
   name_not_ends_with?: String;
-  posts_every?: PostWhereInput;
-  posts_some?: PostWhereInput;
-  posts_none?: PostWhereInput;
-  AND?: UserWhereInput[] | UserWhereInput;
-  OR?: UserWhereInput[] | UserWhereInput;
-  NOT?: UserWhereInput[] | UserWhereInput;
+  teams_every?: TeamWhereInput;
+  teams_some?: TeamWhereInput;
+  teams_none?: TeamWhereInput;
+  powerLvl?: Int;
+  powerLvl_not?: Int;
+  powerLvl_in?: Int[] | Int;
+  powerLvl_not_in?: Int[] | Int;
+  powerLvl_lt?: Int;
+  powerLvl_lte?: Int;
+  powerLvl_gt?: Int;
+  powerLvl_gte?: Int;
+  AND?: HeroWhereInput[] | HeroWhereInput;
+  OR?: HeroWhereInput[] | HeroWhereInput;
+  NOT?: HeroWhereInput[] | HeroWhereInput;
 }
 
-export interface UserUpdateWithoutPostsDataInput {
-  email?: String;
+export interface TeamUpdateManyDataInput {
   name?: String;
 }
 
-export interface PostUpdateManyDataInput {
-  title?: String;
-  published?: Boolean;
-}
-
-export interface PostCreateManyWithoutAuthorInput {
-  create?: PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput;
-  connect?: PostWhereUniqueInput[] | PostWhereUniqueInput;
-}
-
-export interface PostCreateWithoutAuthorInput {
-  title: String;
-  published?: Boolean;
-}
-
-export interface PostWhereInput {
+export interface TeamWhereInput {
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -359,115 +248,418 @@ export interface PostWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
-  title?: String;
-  title_not?: String;
-  title_in?: String[] | String;
-  title_not_in?: String[] | String;
-  title_lt?: String;
-  title_lte?: String;
-  title_gt?: String;
-  title_gte?: String;
-  title_contains?: String;
-  title_not_contains?: String;
-  title_starts_with?: String;
-  title_not_starts_with?: String;
-  title_ends_with?: String;
-  title_not_ends_with?: String;
-  published?: Boolean;
-  published_not?: Boolean;
-  author?: UserWhereInput;
-  AND?: PostWhereInput[] | PostWhereInput;
-  OR?: PostWhereInput[] | PostWhereInput;
-  NOT?: PostWhereInput[] | PostWhereInput;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  members_every?: HeroWhereInput;
+  members_some?: HeroWhereInput;
+  members_none?: HeroWhereInput;
+  AND?: TeamWhereInput[] | TeamWhereInput;
+  OR?: TeamWhereInput[] | TeamWhereInput;
+  NOT?: TeamWhereInput[] | TeamWhereInput;
 }
 
-export interface UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput;
-  create: UserCreateWithoutPostsInput;
+export interface TeamCreateWithoutMembersInput {
+  name: String;
 }
 
-export interface PostScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  title?: String;
-  title_not?: String;
-  title_in?: String[] | String;
-  title_not_in?: String[] | String;
-  title_lt?: String;
-  title_lte?: String;
-  title_gt?: String;
-  title_gte?: String;
-  title_contains?: String;
-  title_not_contains?: String;
-  title_starts_with?: String;
-  title_not_starts_with?: String;
-  title_ends_with?: String;
-  title_not_ends_with?: String;
-  published?: Boolean;
-  published_not?: Boolean;
-  AND?: PostScalarWhereInput[] | PostScalarWhereInput;
-  OR?: PostScalarWhereInput[] | PostScalarWhereInput;
-  NOT?: PostScalarWhereInput[] | PostScalarWhereInput;
+export interface TeamCreateInput {
+  name: String;
+  members?: HeroCreateManyWithoutTeamsInput;
 }
 
-export interface PostSubscriptionWhereInput {
+export interface HeroUpdateInput {
+  name?: String;
+  teams?: TeamUpdateManyWithoutMembersInput;
+  powerLvl?: Int;
+}
+
+export interface HeroUpdateManyMutationInput {
+  name?: String;
+  powerLvl?: Int;
+}
+
+export interface TeamUpdateManyWithoutMembersInput {
+  create?: TeamCreateWithoutMembersInput[] | TeamCreateWithoutMembersInput;
+  delete?: TeamWhereUniqueInput[] | TeamWhereUniqueInput;
+  connect?: TeamWhereUniqueInput[] | TeamWhereUniqueInput;
+  set?: TeamWhereUniqueInput[] | TeamWhereUniqueInput;
+  disconnect?: TeamWhereUniqueInput[] | TeamWhereUniqueInput;
+  update?:
+    | TeamUpdateWithWhereUniqueWithoutMembersInput[]
+    | TeamUpdateWithWhereUniqueWithoutMembersInput;
+  upsert?:
+    | TeamUpsertWithWhereUniqueWithoutMembersInput[]
+    | TeamUpsertWithWhereUniqueWithoutMembersInput;
+  deleteMany?: TeamScalarWhereInput[] | TeamScalarWhereInput;
+  updateMany?:
+    | TeamUpdateManyWithWhereNestedInput[]
+    | TeamUpdateManyWithWhereNestedInput;
+}
+
+export interface HeroSubscriptionWhereInput {
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
   updatedFields_contains_every?: String[] | String;
   updatedFields_contains_some?: String[] | String;
-  node?: PostWhereInput;
-  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
-  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
-  NOT?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
+  node?: HeroWhereInput;
+  AND?: HeroSubscriptionWhereInput[] | HeroSubscriptionWhereInput;
+  OR?: HeroSubscriptionWhereInput[] | HeroSubscriptionWhereInput;
+  NOT?: HeroSubscriptionWhereInput[] | HeroSubscriptionWhereInput;
 }
 
-export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput;
-  data: PostUpdateWithoutAuthorDataInput;
+export interface TeamUpdateWithWhereUniqueWithoutMembersInput {
+  where: TeamWhereUniqueInput;
+  data: TeamUpdateWithoutMembersDataInput;
 }
 
-export interface PostUpsertWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput;
-  update: PostUpdateWithoutAuthorDataInput;
-  create: PostCreateWithoutAuthorInput;
+export interface HeroUpdateManyDataInput {
+  name?: String;
+  powerLvl?: Int;
+}
+
+export interface HeroUpdateWithoutTeamsDataInput {
+  name?: String;
+  powerLvl?: Int;
+}
+
+export interface HeroUpdateManyWithWhereNestedInput {
+  where: HeroScalarWhereInput;
+  data: HeroUpdateManyDataInput;
+}
+
+export interface TeamUpsertWithWhereUniqueWithoutMembersInput {
+  where: TeamWhereUniqueInput;
+  update: TeamUpdateWithoutMembersDataInput;
+  create: TeamCreateWithoutMembersInput;
+}
+
+export interface HeroUpsertWithWhereUniqueWithoutTeamsInput {
+  where: HeroWhereUniqueInput;
+  update: HeroUpdateWithoutTeamsDataInput;
+  create: HeroCreateWithoutTeamsInput;
+}
+
+export interface TeamScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  AND?: TeamScalarWhereInput[] | TeamScalarWhereInput;
+  OR?: TeamScalarWhereInput[] | TeamScalarWhereInput;
+  NOT?: TeamScalarWhereInput[] | TeamScalarWhereInput;
+}
+
+export interface HeroCreateInput {
+  name: String;
+  teams?: TeamCreateManyWithoutMembersInput;
+  powerLvl: Int;
+}
+
+export interface HeroUpdateWithWhereUniqueWithoutTeamsInput {
+  where: HeroWhereUniqueInput;
+  data: HeroUpdateWithoutTeamsDataInput;
+}
+
+export interface TeamSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: TeamWhereInput;
+  AND?: TeamSubscriptionWhereInput[] | TeamSubscriptionWhereInput;
+  OR?: TeamSubscriptionWhereInput[] | TeamSubscriptionWhereInput;
+  NOT?: TeamSubscriptionWhereInput[] | TeamSubscriptionWhereInput;
+}
+
+export type TeamWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  name?: String;
+}>;
+
+export interface HeroCreateManyWithoutTeamsInput {
+  create?: HeroCreateWithoutTeamsInput[] | HeroCreateWithoutTeamsInput;
+  connect?: HeroWhereUniqueInput[] | HeroWhereUniqueInput;
+}
+
+export interface HeroCreateWithoutTeamsInput {
+  name: String;
+  powerLvl: Int;
+}
+
+export interface TeamUpdateInput {
+  name?: String;
+  members?: HeroUpdateManyWithoutTeamsInput;
+}
+
+export interface HeroUpdateManyWithoutTeamsInput {
+  create?: HeroCreateWithoutTeamsInput[] | HeroCreateWithoutTeamsInput;
+  delete?: HeroWhereUniqueInput[] | HeroWhereUniqueInput;
+  connect?: HeroWhereUniqueInput[] | HeroWhereUniqueInput;
+  set?: HeroWhereUniqueInput[] | HeroWhereUniqueInput;
+  disconnect?: HeroWhereUniqueInput[] | HeroWhereUniqueInput;
+  update?:
+    | HeroUpdateWithWhereUniqueWithoutTeamsInput[]
+    | HeroUpdateWithWhereUniqueWithoutTeamsInput;
+  upsert?:
+    | HeroUpsertWithWhereUniqueWithoutTeamsInput[]
+    | HeroUpsertWithWhereUniqueWithoutTeamsInput;
+  deleteMany?: HeroScalarWhereInput[] | HeroScalarWhereInput;
+  updateMany?:
+    | HeroUpdateManyWithWhereNestedInput[]
+    | HeroUpdateManyWithWhereNestedInput;
+}
+
+export interface HeroScalarWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  powerLvl?: Int;
+  powerLvl_not?: Int;
+  powerLvl_in?: Int[] | Int;
+  powerLvl_not_in?: Int[] | Int;
+  powerLvl_lt?: Int;
+  powerLvl_lte?: Int;
+  powerLvl_gt?: Int;
+  powerLvl_gte?: Int;
+  AND?: HeroScalarWhereInput[] | HeroScalarWhereInput;
+  OR?: HeroScalarWhereInput[] | HeroScalarWhereInput;
+  NOT?: HeroScalarWhereInput[] | HeroScalarWhereInput;
+}
+
+export interface TeamUpdateManyMutationInput {
+  name?: String;
+}
+
+export interface TeamCreateManyWithoutMembersInput {
+  create?: TeamCreateWithoutMembersInput[] | TeamCreateWithoutMembersInput;
+  connect?: TeamWhereUniqueInput[] | TeamWhereUniqueInput;
 }
 
 export interface NodeNode {
   id: ID_Output;
 }
 
-export interface UserPreviousValues {
+export interface TeamPreviousValues {
   id: ID_Output;
-  email?: String;
   name: String;
 }
 
-export interface UserPreviousValuesPromise
-  extends Promise<UserPreviousValues>,
+export interface TeamPreviousValuesPromise
+  extends Promise<TeamPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
   name: () => Promise<String>;
 }
 
-export interface UserPreviousValuesSubscription
-  extends Promise<AsyncIterator<UserPreviousValues>>,
+export interface TeamPreviousValuesSubscription
+  extends Promise<AsyncIterator<TeamPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  email: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateHero {
+  count: Int;
+}
+
+export interface AggregateHeroPromise
+  extends Promise<AggregateHero>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateHeroSubscription
+  extends Promise<AsyncIterator<AggregateHero>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Hero {
+  id: ID_Output;
+  name: String;
+  powerLvl: Int;
+}
+
+export interface HeroPromise extends Promise<Hero>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  teams: <T = FragmentableArray<Team>>(
+    args?: {
+      where?: TeamWhereInput;
+      orderBy?: TeamOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  powerLvl: () => Promise<Int>;
+}
+
+export interface HeroSubscription
+  extends Promise<AsyncIterator<Hero>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  teams: <T = Promise<AsyncIterator<TeamSubscription>>>(
+    args?: {
+      where?: TeamWhereInput;
+      orderBy?: TeamOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  powerLvl: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface HeroEdge {
+  node: Hero;
+  cursor: String;
+}
+
+export interface HeroEdgePromise extends Promise<HeroEdge>, Fragmentable {
+  node: <T = HeroPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface HeroEdgeSubscription
+  extends Promise<AsyncIterator<HeroEdge>>,
+    Fragmentable {
+  node: <T = HeroSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface HeroConnection {
+  pageInfo: PageInfo;
+  edges: HeroEdge[];
+}
+
+export interface HeroConnectionPromise
+  extends Promise<HeroConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<HeroEdge>>() => T;
+  aggregate: <T = AggregateHeroPromise>() => T;
+}
+
+export interface HeroConnectionSubscription
+  extends Promise<AsyncIterator<HeroConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<HeroEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateHeroSubscription>() => T;
+}
+
+export interface HeroPreviousValues {
+  id: ID_Output;
+  name: String;
+  powerLvl: Int;
+}
+
+export interface HeroPreviousValuesPromise
+  extends Promise<HeroPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  powerLvl: () => Promise<Int>;
+}
+
+export interface HeroPreviousValuesSubscription
+  extends Promise<AsyncIterator<HeroPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  powerLvl: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface HeroSubscriptionPayload {
+  mutation: MutationType;
+  node: Hero;
+  updatedFields: String[];
+  previousValues: HeroPreviousValues;
+}
+
+export interface HeroSubscriptionPayloadPromise
+  extends Promise<HeroSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = HeroPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = HeroPreviousValuesPromise>() => T;
+}
+
+export interface HeroSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<HeroSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = HeroSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = HeroPreviousValuesSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -493,20 +685,43 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface User {
+export interface TeamSubscriptionPayload {
+  mutation: MutationType;
+  node: Team;
+  updatedFields: String[];
+  previousValues: TeamPreviousValues;
+}
+
+export interface TeamSubscriptionPayloadPromise
+  extends Promise<TeamSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = TeamPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TeamPreviousValuesPromise>() => T;
+}
+
+export interface TeamSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<TeamSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TeamSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TeamPreviousValuesSubscription>() => T;
+}
+
+export interface Team {
   id: ID_Output;
-  email?: String;
   name: String;
 }
 
-export interface UserPromise extends Promise<User>, Fragmentable {
+export interface TeamPromise extends Promise<Team>, Fragmentable {
   id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
   name: () => Promise<String>;
-  posts: <T = FragmentableArray<Post>>(
+  members: <T = FragmentableArray<Hero>>(
     args?: {
-      where?: PostWhereInput;
-      orderBy?: PostOrderByInput;
+      where?: HeroWhereInput;
+      orderBy?: HeroOrderByInput;
       skip?: Int;
       after?: String;
       before?: String;
@@ -516,16 +731,15 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   ) => T;
 }
 
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
+export interface TeamSubscription
+  extends Promise<AsyncIterator<Team>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  email: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
-  posts: <T = Promise<AsyncIterator<PostSubscription>>>(
+  members: <T = Promise<AsyncIterator<HeroSubscription>>>(
     args?: {
-      where?: PostWhereInput;
-      orderBy?: PostOrderByInput;
+      where?: HeroWhereInput;
+      orderBy?: HeroOrderByInput;
       skip?: Int;
       after?: String;
       before?: String;
@@ -533,129 +747,6 @@ export interface UserSubscription
       last?: Int;
     }
   ) => T;
-}
-
-export interface PostEdge {
-  node: Post;
-  cursor: String;
-}
-
-export interface PostEdgePromise extends Promise<PostEdge>, Fragmentable {
-  node: <T = PostPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface PostEdgeSubscription
-  extends Promise<AsyncIterator<PostEdge>>,
-    Fragmentable {
-  node: <T = PostSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface PostSubscriptionPayload {
-  mutation: MutationType;
-  node: Post;
-  updatedFields: String[];
-  previousValues: PostPreviousValues;
-}
-
-export interface PostSubscriptionPayloadPromise
-  extends Promise<PostSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = PostPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = PostPreviousValuesPromise>() => T;
-}
-
-export interface PostSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<PostSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = PostSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = PostPreviousValuesSubscription>() => T;
-}
-
-export interface PostConnection {
-  pageInfo: PageInfo;
-  edges: PostEdge[];
-}
-
-export interface PostConnectionPromise
-  extends Promise<PostConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<PostEdge>>() => T;
-  aggregate: <T = AggregatePostPromise>() => T;
-}
-
-export interface PostConnectionSubscription
-  extends Promise<AsyncIterator<PostConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<PostEdgeSubscription>>>() => T;
-  aggregate: <T = AggregatePostSubscription>() => T;
-}
-
-export interface Post {
-  id: ID_Output;
-  title: String;
-  published: Boolean;
-}
-
-export interface PostPromise extends Promise<Post>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
-  published: () => Promise<Boolean>;
-  author: <T = UserPromise>() => T;
-}
-
-export interface PostSubscription
-  extends Promise<AsyncIterator<Post>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  title: () => Promise<AsyncIterator<String>>;
-  published: () => Promise<AsyncIterator<Boolean>>;
-  author: <T = UserSubscription>() => T;
-}
-
-export interface PostPreviousValues {
-  id: ID_Output;
-  title: String;
-  published: Boolean;
-}
-
-export interface PostPreviousValuesPromise
-  extends Promise<PostPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
-  published: () => Promise<Boolean>;
-}
-
-export interface PostPreviousValuesSubscription
-  extends Promise<AsyncIterator<PostPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  title: () => Promise<AsyncIterator<String>>;
-  published: () => Promise<AsyncIterator<Boolean>>;
-}
-
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface BatchPayload {
@@ -674,86 +765,71 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
-export interface UserEdge {
-  node: User;
+export interface TeamConnection {
+  pageInfo: PageInfo;
+  edges: TeamEdge[];
+}
+
+export interface TeamConnectionPromise
+  extends Promise<TeamConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<TeamEdge>>() => T;
+  aggregate: <T = AggregateTeamPromise>() => T;
+}
+
+export interface TeamConnectionSubscription
+  extends Promise<AsyncIterator<TeamConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<TeamEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateTeamSubscription>() => T;
+}
+
+export interface TeamEdge {
+  node: Team;
   cursor: String;
 }
 
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
+export interface TeamEdgePromise extends Promise<TeamEdge>, Fragmentable {
+  node: <T = TeamPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
+export interface TeamEdgeSubscription
+  extends Promise<AsyncIterator<TeamEdge>>,
     Fragmentable {
-  node: <T = UserSubscription>() => T;
+  node: <T = TeamSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregatePost {
+export interface AggregateTeam {
   count: Int;
 }
 
-export interface AggregatePostPromise
-  extends Promise<AggregatePost>,
+export interface AggregateTeamPromise
+  extends Promise<AggregateTeam>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregatePostSubscription
-  extends Promise<AsyncIterator<AggregatePost>>,
+export interface AggregateTeamSubscription
+  extends Promise<AsyncIterator<AggregateTeam>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  node: User;
-  updatedFields: String[];
-  previousValues: UserPreviousValues;
-}
-
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
-}
-
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
-}
-
-export interface UserConnection {
-  pageInfo: PageInfo;
-  edges: UserEdge[];
-}
-
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
 
 export type Long = string;
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+*/
+export type Int = number;
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
@@ -766,27 +842,17 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 */
 export type String = string;
 
-/*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
-
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
-*/
-export type Int = number;
-
 /**
  * Model Metadata
  */
 
 export const models: Model[] = [
   {
-    name: "User",
+    name: "Hero",
     embedded: false
   },
   {
-    name: "Post",
+    name: "Team",
     embedded: false
   }
 ];

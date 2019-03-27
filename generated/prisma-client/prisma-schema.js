@@ -3,11 +3,11 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregatePost {
+/* GraphQL */ `type AggregateHero {
   count: Int!
 }
 
-type AggregateUser {
+type AggregateTeam {
   count: Int!
 }
 
@@ -15,21 +15,233 @@ type BatchPayload {
   count: Long!
 }
 
+type Hero {
+  id: ID!
+  name: String!
+  teams(where: TeamWhereInput, orderBy: TeamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Team!]
+  powerLvl: Int!
+}
+
+type HeroConnection {
+  pageInfo: PageInfo!
+  edges: [HeroEdge]!
+  aggregate: AggregateHero!
+}
+
+input HeroCreateInput {
+  name: String!
+  teams: TeamCreateManyWithoutMembersInput
+  powerLvl: Int!
+}
+
+input HeroCreateManyWithoutTeamsInput {
+  create: [HeroCreateWithoutTeamsInput!]
+  connect: [HeroWhereUniqueInput!]
+}
+
+input HeroCreateWithoutTeamsInput {
+  name: String!
+  powerLvl: Int!
+}
+
+type HeroEdge {
+  node: Hero!
+  cursor: String!
+}
+
+enum HeroOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  powerLvl_ASC
+  powerLvl_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type HeroPreviousValues {
+  id: ID!
+  name: String!
+  powerLvl: Int!
+}
+
+input HeroScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  powerLvl: Int
+  powerLvl_not: Int
+  powerLvl_in: [Int!]
+  powerLvl_not_in: [Int!]
+  powerLvl_lt: Int
+  powerLvl_lte: Int
+  powerLvl_gt: Int
+  powerLvl_gte: Int
+  AND: [HeroScalarWhereInput!]
+  OR: [HeroScalarWhereInput!]
+  NOT: [HeroScalarWhereInput!]
+}
+
+type HeroSubscriptionPayload {
+  mutation: MutationType!
+  node: Hero
+  updatedFields: [String!]
+  previousValues: HeroPreviousValues
+}
+
+input HeroSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: HeroWhereInput
+  AND: [HeroSubscriptionWhereInput!]
+  OR: [HeroSubscriptionWhereInput!]
+  NOT: [HeroSubscriptionWhereInput!]
+}
+
+input HeroUpdateInput {
+  name: String
+  teams: TeamUpdateManyWithoutMembersInput
+  powerLvl: Int
+}
+
+input HeroUpdateManyDataInput {
+  name: String
+  powerLvl: Int
+}
+
+input HeroUpdateManyMutationInput {
+  name: String
+  powerLvl: Int
+}
+
+input HeroUpdateManyWithoutTeamsInput {
+  create: [HeroCreateWithoutTeamsInput!]
+  delete: [HeroWhereUniqueInput!]
+  connect: [HeroWhereUniqueInput!]
+  set: [HeroWhereUniqueInput!]
+  disconnect: [HeroWhereUniqueInput!]
+  update: [HeroUpdateWithWhereUniqueWithoutTeamsInput!]
+  upsert: [HeroUpsertWithWhereUniqueWithoutTeamsInput!]
+  deleteMany: [HeroScalarWhereInput!]
+  updateMany: [HeroUpdateManyWithWhereNestedInput!]
+}
+
+input HeroUpdateManyWithWhereNestedInput {
+  where: HeroScalarWhereInput!
+  data: HeroUpdateManyDataInput!
+}
+
+input HeroUpdateWithoutTeamsDataInput {
+  name: String
+  powerLvl: Int
+}
+
+input HeroUpdateWithWhereUniqueWithoutTeamsInput {
+  where: HeroWhereUniqueInput!
+  data: HeroUpdateWithoutTeamsDataInput!
+}
+
+input HeroUpsertWithWhereUniqueWithoutTeamsInput {
+  where: HeroWhereUniqueInput!
+  update: HeroUpdateWithoutTeamsDataInput!
+  create: HeroCreateWithoutTeamsInput!
+}
+
+input HeroWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  teams_every: TeamWhereInput
+  teams_some: TeamWhereInput
+  teams_none: TeamWhereInput
+  powerLvl: Int
+  powerLvl_not: Int
+  powerLvl_in: [Int!]
+  powerLvl_not_in: [Int!]
+  powerLvl_lt: Int
+  powerLvl_lte: Int
+  powerLvl_gt: Int
+  powerLvl_gte: Int
+  AND: [HeroWhereInput!]
+  OR: [HeroWhereInput!]
+  NOT: [HeroWhereInput!]
+}
+
+input HeroWhereUniqueInput {
+  id: ID
+  name: String
+}
+
 scalar Long
 
 type Mutation {
-  createPost(data: PostCreateInput!): Post!
-  updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
-  updateManyPosts(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
-  upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
-  deletePost(where: PostWhereUniqueInput!): Post
-  deleteManyPosts(where: PostWhereInput): BatchPayload!
-  createUser(data: UserCreateInput!): User!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createHero(data: HeroCreateInput!): Hero!
+  updateHero(data: HeroUpdateInput!, where: HeroWhereUniqueInput!): Hero
+  updateManyHeroes(data: HeroUpdateManyMutationInput!, where: HeroWhereInput): BatchPayload!
+  upsertHero(where: HeroWhereUniqueInput!, create: HeroCreateInput!, update: HeroUpdateInput!): Hero!
+  deleteHero(where: HeroWhereUniqueInput!): Hero
+  deleteManyHeroes(where: HeroWhereInput): BatchPayload!
+  createTeam(data: TeamCreateInput!): Team!
+  updateTeam(data: TeamUpdateInput!, where: TeamWhereUniqueInput!): Team
+  updateManyTeams(data: TeamUpdateManyMutationInput!, where: TeamWhereInput): BatchPayload!
+  upsertTeam(where: TeamWhereUniqueInput!, create: TeamCreateInput!, update: TeamUpdateInput!): Team!
+  deleteTeam(where: TeamWhereUniqueInput!): Team
+  deleteManyTeams(where: TeamWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -49,257 +261,55 @@ type PageInfo {
   endCursor: String
 }
 
-type Post {
-  id: ID!
-  title: String!
-  published: Boolean!
-  author: User
-}
-
-type PostConnection {
-  pageInfo: PageInfo!
-  edges: [PostEdge]!
-  aggregate: AggregatePost!
-}
-
-input PostCreateInput {
-  title: String!
-  published: Boolean
-  author: UserCreateOneWithoutPostsInput
-}
-
-input PostCreateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  connect: [PostWhereUniqueInput!]
-}
-
-input PostCreateWithoutAuthorInput {
-  title: String!
-  published: Boolean
-}
-
-type PostEdge {
-  node: Post!
-  cursor: String!
-}
-
-enum PostOrderByInput {
-  id_ASC
-  id_DESC
-  title_ASC
-  title_DESC
-  published_ASC
-  published_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
-type PostPreviousValues {
-  id: ID!
-  title: String!
-  published: Boolean!
-}
-
-input PostScalarWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  published: Boolean
-  published_not: Boolean
-  AND: [PostScalarWhereInput!]
-  OR: [PostScalarWhereInput!]
-  NOT: [PostScalarWhereInput!]
-}
-
-type PostSubscriptionPayload {
-  mutation: MutationType!
-  node: Post
-  updatedFields: [String!]
-  previousValues: PostPreviousValues
-}
-
-input PostSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: PostWhereInput
-  AND: [PostSubscriptionWhereInput!]
-  OR: [PostSubscriptionWhereInput!]
-  NOT: [PostSubscriptionWhereInput!]
-}
-
-input PostUpdateInput {
-  title: String
-  published: Boolean
-  author: UserUpdateOneWithoutPostsInput
-}
-
-input PostUpdateManyDataInput {
-  title: String
-  published: Boolean
-}
-
-input PostUpdateManyMutationInput {
-  title: String
-  published: Boolean
-}
-
-input PostUpdateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  delete: [PostWhereUniqueInput!]
-  connect: [PostWhereUniqueInput!]
-  set: [PostWhereUniqueInput!]
-  disconnect: [PostWhereUniqueInput!]
-  update: [PostUpdateWithWhereUniqueWithoutAuthorInput!]
-  upsert: [PostUpsertWithWhereUniqueWithoutAuthorInput!]
-  deleteMany: [PostScalarWhereInput!]
-  updateMany: [PostUpdateManyWithWhereNestedInput!]
-}
-
-input PostUpdateManyWithWhereNestedInput {
-  where: PostScalarWhereInput!
-  data: PostUpdateManyDataInput!
-}
-
-input PostUpdateWithoutAuthorDataInput {
-  title: String
-  published: Boolean
-}
-
-input PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  data: PostUpdateWithoutAuthorDataInput!
-}
-
-input PostUpsertWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  update: PostUpdateWithoutAuthorDataInput!
-  create: PostCreateWithoutAuthorInput!
-}
-
-input PostWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  published: Boolean
-  published_not: Boolean
-  author: UserWhereInput
-  AND: [PostWhereInput!]
-  OR: [PostWhereInput!]
-  NOT: [PostWhereInput!]
-}
-
-input PostWhereUniqueInput {
-  id: ID
-}
-
 type Query {
-  post(where: PostWhereUniqueInput!): Post
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
-  postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
-  user(where: UserWhereUniqueInput!): User
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  hero(where: HeroWhereUniqueInput!): Hero
+  heroes(where: HeroWhereInput, orderBy: HeroOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Hero]!
+  heroesConnection(where: HeroWhereInput, orderBy: HeroOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HeroConnection!
+  team(where: TeamWhereUniqueInput!): Team
+  teams(where: TeamWhereInput, orderBy: TeamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Team]!
+  teamsConnection(where: TeamWhereInput, orderBy: TeamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TeamConnection!
   node(id: ID!): Node
 }
 
 type Subscription {
-  post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  hero(where: HeroSubscriptionWhereInput): HeroSubscriptionPayload
+  team(where: TeamSubscriptionWhereInput): TeamSubscriptionPayload
 }
 
-type User {
+type Team {
   id: ID!
-  email: String
   name: String!
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+  members(where: HeroWhereInput, orderBy: HeroOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Hero!]
 }
 
-type UserConnection {
+type TeamConnection {
   pageInfo: PageInfo!
-  edges: [UserEdge]!
-  aggregate: AggregateUser!
+  edges: [TeamEdge]!
+  aggregate: AggregateTeam!
 }
 
-input UserCreateInput {
-  email: String
+input TeamCreateInput {
   name: String!
-  posts: PostCreateManyWithoutAuthorInput
+  members: HeroCreateManyWithoutTeamsInput
 }
 
-input UserCreateOneWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
-  connect: UserWhereUniqueInput
+input TeamCreateManyWithoutMembersInput {
+  create: [TeamCreateWithoutMembersInput!]
+  connect: [TeamWhereUniqueInput!]
 }
 
-input UserCreateWithoutPostsInput {
-  email: String
+input TeamCreateWithoutMembersInput {
   name: String!
 }
 
-type UserEdge {
-  node: User!
+type TeamEdge {
+  node: Team!
   cursor: String!
 }
 
-enum UserOrderByInput {
+enum TeamOrderByInput {
   id_ASC
   id_DESC
-  email_ASC
-  email_DESC
   name_ASC
   name_DESC
   createdAt_ASC
@@ -308,61 +318,12 @@ enum UserOrderByInput {
   updatedAt_DESC
 }
 
-type UserPreviousValues {
+type TeamPreviousValues {
   id: ID!
-  email: String
   name: String!
 }
 
-type UserSubscriptionPayload {
-  mutation: MutationType!
-  node: User
-  updatedFields: [String!]
-  previousValues: UserPreviousValues
-}
-
-input UserSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: UserWhereInput
-  AND: [UserSubscriptionWhereInput!]
-  OR: [UserSubscriptionWhereInput!]
-  NOT: [UserSubscriptionWhereInput!]
-}
-
-input UserUpdateInput {
-  email: String
-  name: String
-  posts: PostUpdateManyWithoutAuthorInput
-}
-
-input UserUpdateManyMutationInput {
-  email: String
-  name: String
-}
-
-input UserUpdateOneWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
-  update: UserUpdateWithoutPostsDataInput
-  upsert: UserUpsertWithoutPostsInput
-  delete: Boolean
-  disconnect: Boolean
-  connect: UserWhereUniqueInput
-}
-
-input UserUpdateWithoutPostsDataInput {
-  email: String
-  name: String
-}
-
-input UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput!
-  create: UserCreateWithoutPostsInput!
-}
-
-input UserWhereInput {
+input TeamScalarWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -377,20 +338,6 @@ input UserWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  email: String
-  email_not: String
-  email_in: [String!]
-  email_not_in: [String!]
-  email_lt: String
-  email_lte: String
-  email_gt: String
-  email_gte: String
-  email_contains: String
-  email_not_contains: String
-  email_starts_with: String
-  email_not_starts_with: String
-  email_ends_with: String
-  email_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -405,17 +352,114 @@ input UserWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  posts_every: PostWhereInput
-  posts_some: PostWhereInput
-  posts_none: PostWhereInput
-  AND: [UserWhereInput!]
-  OR: [UserWhereInput!]
-  NOT: [UserWhereInput!]
+  AND: [TeamScalarWhereInput!]
+  OR: [TeamScalarWhereInput!]
+  NOT: [TeamScalarWhereInput!]
 }
 
-input UserWhereUniqueInput {
+type TeamSubscriptionPayload {
+  mutation: MutationType!
+  node: Team
+  updatedFields: [String!]
+  previousValues: TeamPreviousValues
+}
+
+input TeamSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: TeamWhereInput
+  AND: [TeamSubscriptionWhereInput!]
+  OR: [TeamSubscriptionWhereInput!]
+  NOT: [TeamSubscriptionWhereInput!]
+}
+
+input TeamUpdateInput {
+  name: String
+  members: HeroUpdateManyWithoutTeamsInput
+}
+
+input TeamUpdateManyDataInput {
+  name: String
+}
+
+input TeamUpdateManyMutationInput {
+  name: String
+}
+
+input TeamUpdateManyWithoutMembersInput {
+  create: [TeamCreateWithoutMembersInput!]
+  delete: [TeamWhereUniqueInput!]
+  connect: [TeamWhereUniqueInput!]
+  set: [TeamWhereUniqueInput!]
+  disconnect: [TeamWhereUniqueInput!]
+  update: [TeamUpdateWithWhereUniqueWithoutMembersInput!]
+  upsert: [TeamUpsertWithWhereUniqueWithoutMembersInput!]
+  deleteMany: [TeamScalarWhereInput!]
+  updateMany: [TeamUpdateManyWithWhereNestedInput!]
+}
+
+input TeamUpdateManyWithWhereNestedInput {
+  where: TeamScalarWhereInput!
+  data: TeamUpdateManyDataInput!
+}
+
+input TeamUpdateWithoutMembersDataInput {
+  name: String
+}
+
+input TeamUpdateWithWhereUniqueWithoutMembersInput {
+  where: TeamWhereUniqueInput!
+  data: TeamUpdateWithoutMembersDataInput!
+}
+
+input TeamUpsertWithWhereUniqueWithoutMembersInput {
+  where: TeamWhereUniqueInput!
+  update: TeamUpdateWithoutMembersDataInput!
+  create: TeamCreateWithoutMembersInput!
+}
+
+input TeamWhereInput {
   id: ID
-  email: String
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  members_every: HeroWhereInput
+  members_some: HeroWhereInput
+  members_none: HeroWhereInput
+  AND: [TeamWhereInput!]
+  OR: [TeamWhereInput!]
+  NOT: [TeamWhereInput!]
+}
+
+input TeamWhereUniqueInput {
+  id: ID
+  name: String
 }
 `
       }

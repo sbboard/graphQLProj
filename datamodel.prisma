@@ -2,12 +2,21 @@ type Hero {
   id: ID! @unique
   name: String! @unique
   teams: [Team!]!
-  power: Number!
-  alive: Boolean! @default(value: "true")
+  powerLvl: Int!
+  HP: Int!
+  nemesis: Baddie
 }
 
 type Team {
   id: ID! @unique
   name: String! @unique
-  leader: Hero
+  members: [Hero!]!
+}
+
+type Baddie {
+  id: ID! @unique
+  name: String! @unique
+  powerLvl: Int!
+  nemesis: Hero
+  HP: Int!
 }
